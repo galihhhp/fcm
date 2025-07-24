@@ -22,7 +22,7 @@ export const useNotificationStore = create<NotificationState>((set, get) => ({
   notifications: [],
   loading: false,
   error: "",
-  fetchNotifications: async (page = 1, limit = 10) => {
+  fetchNotifications: async (page = 1, limit = 20) => {
     set({ loading: true, error: "" });
     try {
       const token = getToken();

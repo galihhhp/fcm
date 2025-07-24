@@ -12,7 +12,7 @@ const GlobalUnreadBadge: React.FC = () => {
     <nav className="fixed top-6 right-8 z-50 flex items-center gap-3">
       <button
         onClick={handleLogout}
-        className="px-3 py-2 rounded-lg bg-red-500 text-white font-semibold text-sm shadow-sm border border-gray-200 transition"
+        className="px-3 py-2 rounded-lg bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold text-sm shadow-sm border border-gray-200 transition"
         aria-label="Logout"
       >
         Logout
@@ -40,32 +40,26 @@ const GlobalUnreadBadge: React.FC = () => {
             <span className="absolute -top-1 -right-1 w-2.5 h-2.5 bg-red-500 rounded-full border-2 border-white" />
           )}
         </button>
-        {isOpen && (
-          <>
-            <div
-              className="fixed inset-0 z-40"
-              onClick={() => setIsOpen(false)}
-            />
-            <div
-              className="absolute right-0 mt-4 w-[380px] bg-white rounded-2xl shadow-xl border border-gray-100 max-h-[480px] overflow-hidden transform transition-all duration-150 z-50 flex flex-col animate-fadein"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <div className="p-5 border-b border-gray-100 bg-white flex items-center justify-between">
-                <h3 className="text-lg font-bold text-gray-900 tracking-tight">
-                  Notifikasi
-                </h3>
-                {unreadCount > 0 && (
-                  <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-700">
-                    {unreadCount}
-                  </span>
-                )}
-              </div>
-              <div className="flex-1 max-h-80 overflow-y-auto px-2 py-2">
-                <NotificationList />
-              </div>
-            </div>
-          </>
-        )}
+        <div
+          className={`absolute right-0 mt-4 w-[380px] bg-white rounded-2xl shadow-xl border border-gray-100 max-h-[480px] overflow-hidden transform transition-all duration-150 z-50 flex flex-col animate-fadein ${
+            isOpen ? "" : "hidden"
+          }`}
+          onClick={(e) => e.stopPropagation()}
+        >
+          <div className="p-5 border-b border-gray-100 bg-white flex items-center justify-between">
+            <h3 className="text-lg font-bold text-gray-900 tracking-tight">
+              Notifikasi
+            </h3>
+            {unreadCount > 0 && (
+              <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-700">
+                {unreadCount}
+              </span>
+            )}
+          </div>
+          <div className="flex-1 max-h-80 overflow-y-auto px-2 py-2">
+            <NotificationList />
+          </div>
+        </div>
       </div>
     </nav>
   );

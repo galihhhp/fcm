@@ -85,16 +85,13 @@ const NotificationList: React.FC = () => {
 
   useEffect(() => {
     setMounted(true);
+    fetchNotifications(1, limit);
   }, []);
-
-  useEffect(() => {
-    if (mounted) fetchNotifications(page, limit);
-  }, [mounted, page]);
 
   const unreadCount = notifications.filter(
     (n: Notification) => !n.isRead
   ).length;
-  console.log(notifications);
+
   if (!mounted) return null;
   if (loading)
     return (
@@ -123,7 +120,10 @@ const NotificationList: React.FC = () => {
       <div className="flex justify-between items-center mt-4 gap-2">
         <button
           className="px-4 py-1 rounded-lg border text-sm font-semibold bg-[#131416] text-white disabled:opacity-60"
-          onClick={() => setPage(page - 1)}
+          onClick={() => {
+            setPage(page - 1);
+            fetchNotifications(page - 1, limit);
+          }}
           disabled={page === 1}
         >
           Sebelumnya
@@ -131,7 +131,10 @@ const NotificationList: React.FC = () => {
         <span className="text-xs text-gray-500">Halaman {page}</span>
         <button
           className="px-4 py-1 rounded-lg border text-sm font-semibold bg-[#131416] text-white disabled:opacity-60"
-          onClick={() => setPage(page + 1)}
+          onClick={() => {
+            setPage(page + 1);
+            fetchNotifications(page + 1, limit);
+          }}
           disabled={notifications.length < limit}
         >
           Berikutnya
